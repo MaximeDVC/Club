@@ -1,1 +1,30 @@
-<!-- Page 7 - à remplir -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Le Club des Explorateurs d'Art - Page 7</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page7">
+  <div class="overlay">
+    <h1>Énigme 7</h1>
+    <p>Écoute les murs, ils murmurent.</p>
+    <input type="text" id="passwordInput" placeholder="Mot de passe" />
+    <button onclick="checkPassword()">Entrer</button>
+    <p id="errorMessage"></p>
+  </div>
+  <audio autoplay loop>
+    <source src="ambiance.mp3" type="audio/mp3" />
+  </audio>
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('passwordInput').value.trim().toLowerCase();
+      if (input === "test") {
+        window.location.href = "page8.html";
+      } else {
+        document.getElementById('errorMessage').textContent = "Mot de passe incorrect.";
+      }
+    }
+  </script>
+</body>
+</html>
