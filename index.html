@@ -1,43 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Explorateurs</title>
+  <title>explorateur</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
- <audio id="ambiance" src="ambiance.mp3" autoplay loop>
- </audio>
-
   <div class="overlay">
-    <img id="porte" src="porte-fermee.png" alt="Porte fermée" />
-    <div class="formulaire">
-      <input type="text" id="passwordInput" placeholder="Trouvez le mot de passe" />
-      <button onclick="checkPassword()">Entrer</button>
-      <p id="errorMessage"></p>
+    <img src="porte-fermee.png" id="porte" alt="Porte fermée">
+    
+    <div class="form-container">
+      <h1>Trouvez le mot de passe</h1>
+      <input type="password" id="mdp" placeholder="Mot de passe">
+      <button onclick="verifierMotDePasse()">Entrer</button>
+      <p id="message"></p>
     </div>
   </div>
 
-  <audio id="sonErreur" src="erreur.mp3"></audio>
-  <audio id="sonOuverture" src="porte.mp3"></audio>
+  <!-- Musique de fond en boucle -->
+  <audio id="musiqueFond" src="ambiance.mp3" autoplay loop></audio>
+
+  <!-- Sons d'interaction -->
+  <audio id="bruitPorte" src="porte-ouverture.mp3"></audio>
+  <audio id="bruitErreur" src="erreur.mp3"></audio>
 
   <script>
-    function checkPassword() {
-      const input = document.getElementById("passwordInput").value.trim().toLowerCase();
-      const erreur = document.getElementById("sonErreur");
-      const ouverture = document.getElementById("sonOuverture");
+    function verifierMotDePasse() {
+      const motDePasse = document.getElementById("mdp").value.trim().toLowerCase();
+      const bruitPorte = document.getElementById("bruitPorte");
+      const bruitErreur = document.getElementById("bruitErreur");
+      const musiqueFond = document.getElementById("musiqueFond");
+      const message = document.getElementById("message");
       const porte = document.getElementById("porte");
 
-      if (input === "Explorateurs") {
-        ouverture.play();
-        porte.src = "porte-ouverte.png";
+      if (motDePasse === "explorateur") {
+        bruitPorte.play();
+        porte.src = "porte-ouverte.png"; // Change l’image
+        message.textContent = "";
         setTimeout(() => {
-          window.location.href = "page1.html";
-        }, 2500);
+          window.location.href = "page2.html"; // Redirige vers la page suivante
+        }, 2000);
       } else {
-        erreur.play();
-        document.getElementById("errorMessage").textContent = "Mot de passe incorrect.";
+        bruitErreur.play();
+        message.textContent = "Mot de passe incorrect.";
       }
     }
   </script>
