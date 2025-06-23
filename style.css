@@ -1,151 +1,51 @@
-/* style.css */
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #eee;
   background-color: #111;
+  font-family: Arial, sans-serif;
+  color: #fff;
   height: 100vh;
-  overflow: hidden;
-  position: relative;
-  transition: background-color 1.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.container {
   text-align: center;
-  max-width: 90vw;
-  padding: 20px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.9);
+}
+
+#porte {
+  width: 300px;
+  max-width: 80vw;
+  transition: all 1s ease-in-out;
+}
+
+.formulaire {
+  margin-top: 20px;
 }
 
 input[type="text"] {
   padding: 10px;
-  font-size: 1rem;
-  border-radius: 6px;
+  border-radius: 5px;
   border: none;
-  outline: none;
-  width: 220px;
-  margin-top: 15px;
-  margin-bottom: 10px;
+  width: 200px;
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 1rem;
+  padding: 10px 15px;
+  margin-left: 10px;
+  background-color: #333;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  background-color: #444;
-  color: #eee;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #666;
+  background-color: #555;
 }
 
 #errorMessage {
-  color: #ff6666;
+  color: #ff4444;
   margin-top: 10px;
-  height: 1.2em;
-}
-
-/* Brouillard léger et particules animées */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  background: url('brouillard.png') repeat;
-  opacity: 0.15;
-  animation: fogMove 60s linear infinite;
-  z-index: 0;
-}
-
-@keyframes fogMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 1000px 0; }
-}
-
-/* Progression des couleurs par page */
-
-body.page1 {
-  background-color: #111;
-}
-
-body.page2 {
-  background-color: #222233;
-}
-
-body.page3 {
-  background-color: #333344;
-}
-
-body.page4 {
-  background-color: #445566;
-}
-
-body.page5 {
-  background-color: #557788;
-}
-
-body.page6 {
-  background-color: #6699aa;
-}
-
-body.page7 {
-  background-color: #77aabb;
-}
-
-body.page8 {
-  background-color: #88bbcc;
-}
-
-body.page9 {
-  background-color: #99ccdd;
-}
-
-body.finale {
-  background: linear-gradient(135deg, #ff6f61, #fbc531, #00b894, #0984e3, #6c5ce7);
-  background-size: 1000% 1000%;
-  animation: colorExplosion 20s ease infinite alternate;
-  color: #222;
-}
-
-@keyframes colorExplosion {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-.finale-overlay {
-  background: rgba(255, 255, 255, 0.8);
-  color: #222;
-  box-shadow: 0 0 30px #fff;
-  font-weight: bold;
-  font-size: 1.3rem;
-}
-
-/* Styles pour le titre et le texte */
-
-h1 {
-  font-size: 2.8rem;
-  margin-bottom: 0.5em;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-}
-
-p {
-  font-size: 1.3rem;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-}
-
-/* Styles pour le player audio en caché */
-
-audio {
-  display: none;
 }
