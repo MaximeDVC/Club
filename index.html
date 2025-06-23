@@ -10,8 +10,8 @@
     <img src="porte-fermee.png" id="porte" alt="Porte fermée">
     
     <div class="form-container">
-      <h1>Trouvez le mot de passe</h1>
-      <input type="password" id="mdp" placeholder="Mot de passe">
+      <h1>La porte dérobée</h1>
+      <input type="password" id="mdp" placeholder="Trouvez le mot de passe">
       <button onclick="verifierMotDePasse()">Entrer</button>
       <p id="message"></p>
     </div>
@@ -21,8 +21,8 @@
   <audio id="musiqueFond" src="ambiance.mp3" autoplay loop></audio>
 
   <!-- Sons d'interaction -->
-  <audio id="bruitPorte" src="porte-ouverture.mp3"></audio>
-  <audio id="bruitErreur" src="erreur.mp3"></audio>
+  <audio id="bruitPorte" src="porte-ouverture.wav"></audio>
+  <audio id="bruitErreur" src="erreur.wav"></audio>
 
   <script>
     function verifierMotDePasse() {
