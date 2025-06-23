@@ -1,5 +1,7 @@
 
 body {
+   background-color: black !important;
+}
   margin: 0;
   padding: 0;
   background-image: url('stone_wall_background.png');
