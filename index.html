@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Le Club des Explorateurs d'Art</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <audio autoplay loop id="backgroundMusic">
+    <source src="musique.mp3" type="audio/mpeg">
+    Votre navigateur ne supporte pas l'audio.
+  </audio>
+
+  <div class="overlay">
+    <img id="porte" src="porte-fermee.png" alt="Porte fermée" />
+    <div class="formulaire">
+      <input type="text" id="passwordInput" placeholder="Mot de passe" />
+      <button onclick="checkPassword()">Entrer</button>
+      <p id="errorMessage"></p>
+    </div>
+  </div>
+
+  <audio id="sonErreur" src="erreur.mp3"></audio>
+  <audio id="sonOuverture" src="porte.mp3"></audio>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value.trim().toLowerCase();
+      const erreur = document.getElementById("sonErreur");
+      const ouverture = document.getElementById("sonOuverture");
+      const porte = document.getElementById("porte");
+
+      if (input === "explorateur") {
+        ouverture.play();
+        porte.src = "porte-ouverte.png";
+        setTimeout(() => {
+          window.location.href = "page1.html";
+        }, 2500);
+      } else {
+        erreur.play();
+        document.getElementById("errorMessage").textContent = "Mot de passe incorrect.";
+      }
+    }
+  </script>
+</body>
+</html>
