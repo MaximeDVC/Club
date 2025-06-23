@@ -25,6 +25,18 @@
   <audio id="bruitErreur" src="erreur.wav"></audio>
 
   <script>
+    window.addEventListener('DOMContentLoaded', () => {
+  const musique = document.getElementById('musiqueFond');
+  musique.volume = 0.3; // Volume doux (entre 0.0 et 1.0)
+
+  // Essayons de jouer quand la page est prête
+  musique.play().catch(() => {
+    // Si l'autoplay échoue, on attend une interaction
+    document.body.addEventListener('click', () => {
+      musique.play();
+    }, { once: true });
+  });
+});
     function verifierMotDePasse() {
       const motDePasse = document.getElementById("mdp").value.trim().toLowerCase();
       const bruitPorte = document.getElementById("bruitPorte");
