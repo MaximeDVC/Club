@@ -4,60 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Le Club des Explorateurs d'Art – Les 7 Portes</title>
-  <link rel="stylesheet" href="assets/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style_portes.css" />
 </head>
 <body>
   <audio autoplay loop>
     <source src="assets/audio/ambiance-joyeuse.mp3" type="audio/mpeg">
   </audio>
+  <div class="container">
+    <h1 class="titre">Les 7 Portes de l'Art</h1>
+    <div class="porte-grid">
+      <div class="porte" data-art="architecture"><img src="img/porte_architecture.jpg" alt="Porte Architecture" /></div>
+      <div class="porte" data-art="sculpture"><img src="img/porte_sculpture.jpg" alt="Porte Sculpture" /></div>
+      <div class="porte" data-art="peinture"><img src="img/porte_peinture.jpg" alt="Porte Peinture" /></div>
+      <div class="porte" data-art="musique"><img src="img/porte_musique.jpg" alt="Porte Musique" /></div>
+      <div class="porte" data-art="littérature"><img src="img/porte_litterature.jpg" alt="Porte Littérature" /></div>
+      <div class="porte" data-art="cinéma"><img src="img/porte_cinema.jpg" alt="Porte Cinéma" /></div>
+      <div class="porte" data-art="art vivant"><img src="img/porte_joyeuse.pjg" alt="Porte Art Vivant" /></div>
+    </div>
+    <div id="question-zone" class="hidden">
+      <h2 id="art-titre"></h2>
+      <p id="question"></p>
+      <input type="text" id="reponse" placeholder="Votre réponse..." />
+      <button onclick="verifierReponse()">Valider</button>
+      <p id="indice"></p>
+    </div>
 
-  <h1 class="title">Les 7 portes des Arts</h1>
-  <p class="subtitle">Clique sur chaque porte pour répondre à une énigme et collecter un indice !</p>
-
-  <div class="door-container">
-    <div class="door" onclick="openDoor(1)">
-      <img src="assets/img/porte_peinture.jpg" alt="Peinture">
-      <p>Peinture</p>
-    </div>
-    <div class="door" onclick="openDoor(2)">
-      <img src="assets/img/porte_musique.jpg" alt="Musique">
-      <p>Musique</p>
-    </div>
-    <div class="door" onclick="openDoor(3)">
-      <img src="assets/img/porte_litterature.jpg" alt="Littérature">
-      <p>Littérature</p>
-    </div>
-    <div class="door" onclick="openDoor(4)">
-      <img src="assets/img/porte_danse.jpg" alt="Danse">
-      <p>Danse</p>
-    </div>
-    <div class="door" onclick="openDoor(5)">
-      <img src="assets/img/porte_cinema.jpg" alt="Cinéma">
-      <p>Cinéma</p>
-    </div>
-    <div class="door" onclick="openDoor(6)">
-      <img src="assets/img/porte_architecture.jpg" alt="Architecture">
-      <p>Architecture</p>
-    </div>
-    <div class="door" onclick="openDoor(7)">
-      <img src="assets/img/porte_sculpture.jpg" alt="Sculpture">
-      <p>Sculpture</p>
+    <div class="mot-de-passe-final">
+      <h3>Mot de passe final :</h3>
+      <div id="indices-zone">_ _ _ _ _ _ _</div>
     </div>
   </div>
 
-  <div id="question-box" class="hidden">
-    <p id="question-text"></p>
-    <input type="text" id="answer-input" placeholder="Ta réponse...">
-    <button onclick="checkAnswer()">Valider</button>
-    <p id="feedback"></p>
-  </div>
-
-  <div id="final-section">
-    <h2>Mot de passe final :</h2>
-    <div id="final-code"></div>
-  </div>
-
-  <script src="assets/script.js"></script>
+  <script src="script_portes.js"></script>
 </body>
 </html>
