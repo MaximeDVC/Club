@@ -2,39 +2,106 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Le Club des Explorateurs d'Art – Les 7 Portes</title>
-  <link rel="stylesheet" href="style_portes.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Le Club des Explorateurs d'Art</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="assets/audio/ambiance-joyeuse.mp3" type="audio/mpeg">
-  </audio>
-  <div class="container">
-    <h1 class="titre">Les 7 Portes de l'Art</h1>
-    <div class="porte-grid">
-      <div class="porte" data-art="architecture"><img src="assets/img/porte_architecture.jpg" alt="Porte Architecture" /></div>
-      <div class="porte" data-art="sculpture"><img src="assets/img/porte_sculpture.jpg" alt="Porte Sculpture" /></div>
-      <div class="porte" data-art="peinture"><img src="assets/img/porte_peinture.jpg" alt="Porte Peinture" /></div>
-      <div class="porte" data-art="musique"><img src="assets/img/porte_musique.jpg" alt="Porte Musique" /></div>
-      <div class="porte" data-art="littérature"><img src="assets/img/porte_litterature.jpg" alt="Porte Littérature" /></div>
-      <div class="porte" data-art="cinéma"><img src="assets/img/porte_cinema.jpg" alt="Porte Cinéma" /></div>
-      <div class="porte" data-art="art vivant"><img src="assets/img/porte_danse.jpg" alt="Porte Danse" /></div>
-    </div>
-    <div id="question-zone" class="hidden">
-      <h2 id="art-titre"></h2>
-      <p id="question"></p>
-      <input type="text" id="reponse" placeholder="Votre réponse..." />
-      <button onclick="verifierReponse()">Valider</button>
-      <p id="indice"></p>
-    </div>
+  <canvas id="particles"></canvas>
 
-    <div class="mot-de-passe-final">
-      <h3>Mot de passe final :</h3>
-      <div id="indices-zone">_ _ _ _ _ _ _</div>
+  <!-- Contrôle musique -->
+  <div class="music-controls">
+    <audio id="ambiance" src="audio/ambiance-joyeuse.mp3" autoplay loop></audio>
+    <button onclick="toggleMusic()">🎵</button>
+  </div>
+
+  <div class="container">
+    <h1>Choisis un art à explorer</h1>
+    <div class="doors">
+      <div class="door">
+        <a href="art1.html" onclick="playDoorSound()"><img src="assets/img/porte_architecture.jpg" alt="Architecture" /></a>
+        <p>Architecture</p>
+      </div>
+      <div class="door">
+        <a href="art2.html" onclick="playDoorSound()"><img src="assets/img/porte_sculpture.jpg" alt="Sculpture" /></a>
+        <p>Sculpture</p>
+      </div>
+      <div class="door">
+        <a href="art3.html" onclick="playDoorSound()"><img src="assets/img/porte_peinture.jpg" alt="Peinture" /></a>
+        <p>Peinture</p>
+      </div>
+      <div class="door">
+        <a href="art4.html" onclick="playDoorSound()"><img src="assets/img/porte_musique.jpg" alt="Musique" /></a>
+        <p>Musique</p>
+      </div>
+      <div class="door">
+        <a href="art5.html" onclick="playDoorSound()"><img src="assets/img/porte_litterature.jpg" alt="Littérature" /></a>
+        <p>Littérature</p>
+      </div>
+      <div class="door">
+        <a href="art6.html" onclick="playDoorSound()"><img src="assets/img/porte_danse?jpg" alt="Danse" /></a>
+        <p>ADanse</p>
+      </div>
+      <div class="door">
+        <a href="art7.html" onclick="playDoorSound()"><img src="assets/img/porte_cinema.jpg" alt="Cinéma" /></a>
+        <p>Cinéma</p>
+      </div>
     </div>
   </div>
 
-  <script src="script_portes.js"></script>
+  <audio id="doorSound" src="sounds/door.mp3" preload="auto"></audio>
+
+  <script>
+    function playDoorSound() {
+      document.getElementById('doorSound').play();
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById('ambiance');
+      music.paused ? music.play() : music.pause();
+    }
+
+    // 🎨 Particules
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 2,
+        color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+        dx: (Math.random() - 0.5) * 1.5,
+        dy: (Math.random() - 0.5) * 1.5
+      });
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+  </script>
 </body>
 </html>
