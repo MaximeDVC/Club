@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Club des Explorateurs d'Art</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <img src="images/porte-fermee.png" alt="Porte fermée" class="porte" />
+    <input type="password" id="password" placeholder="Entrez le mot de passe" />
+    <button onclick="checkPassword()">Entrer</button>
+  </div>
+
+  <audio id="bg-music" src="sons/ambiance.mp3" loop></audio>
+
+  <script>
+    document.body.addEventListener("click", () => {
+      document.getElementById("bg-music").play();
+    });
+
+    function checkPassword() {
+      const mdp = document.getElementById("password").value;
+      if (mdp.toLowerCase() === "explorateur") {
+        window.location.href = "page2.html";
+      } else {
+        alert("Mot de passe incorrect !");
+      }
+    }
+  </script>
+</body>
+</html>

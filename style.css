@@ -1,0 +1,39 @@
+
+body {
+  margin: 0;
+  background: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+.porte {
+  width: 80%;
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+input[type="password"] {
+  width: 80%;
+  padding: 12px;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1em;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
