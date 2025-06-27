@@ -3,38 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bienvenue Explorateur</title>
+  <title>Explorateur d'Art – Sélection des arts</title>
   <style>
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      background: url('stone_wall_background.png') no-repeat center center fixed;
+      background: url('Club/assets/img/fond.png') no-repeat center center fixed;
       background-size: cover;
-      color: white;
       font-family: 'Georgia', serif;
+      color: white;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+      padding: 30px 20px;
       text-align: center;
-      padding: 20px;
-    }
-
-    .welcome-box {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
     h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+      font-size: 1.8em;
     }
 
     p {
+      margin-bottom: 30px;
       font-size: 1.2em;
-      line-height: 1.5;
+    }
+
+    .arts-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .art-button {
+      flex: 1 1 calc(50% - 30px);
+      min-width: 120px;
+      max-width: 200px;
+      padding: 15px 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: 2px solid white;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+    }
+
+    .art-button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
     }
 
     audio {
@@ -44,23 +66,30 @@
 </head>
 <body>
 
-  <!-- Musique de fond -->
+  <!-- Musique -->
   <audio id="bg-music" autoplay loop>
-    <source src="ambiance.mp3" type="audio/mp3" />
+    <source src="Club/assets/audio/ambiance-joyeuse.mp3" type="audio/mp3" />
   </audio>
 
-  <div class="welcome-box">
-    <h1>Bienvenue, jeune explorateur</h1>
-    <p>
-      Te voilà à l'orée d'une grande expédition à travers la ville…<br />
-      Prépare-toi à ouvrir les portes du savoir artistique !
-    </p>
+  <!-- Texte d'accueil -->
+  <h1>Bienvenue, explorateur</h1>
+  <p>Prêt pour une grande exploration à travers la ville ?</p>
+  <p>Il te faudra explorer les 7 arts si tu veux continuer...</p>
+
+  <!-- Boutons des 7 arts -->
+  <div class="arts-container">
+    <a href="theatre.html" class="art-button">🎭 Théâtre</a>
+    <a href="musique.html" class="art-button">🎵 Musique</a>
+    <a href="danse.html" class="art-button">💃 Danse</a>
+    <a href="architecture.html" class="art-button">🏛 Architecture</a>
+    <a href="peinture.html" class="art-button">🎨 Peinture</a>
+    <a href="sculpture.html" class="art-button">🗿 Sculpture</a>
+    <a href="cinema.html" class="art-button">🎬 Cinéma</a>
   </div>
 
   <script>
     const music = document.getElementById("bg-music");
-    // Rejoue la musique si bloquée
-    window.addEventListener('click', () => {
+    window.addEventListener("click", () => {
       music.play().catch(() => {});
     });
   </script>
