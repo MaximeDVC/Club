@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenue Explorateur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #000;
+      color: #0cf;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .mascotte {
+      width: 200px;
+      max-width: 70vw;
+    }
+
+    .bulle {
+      background-color: white;
+      color: #003366;
+      border-radius: 25px;
+      padding: 20px;
+      margin: 20px;
+      width: 80%;
+      max-width: 400px;
+      font-size: 1.2em;
+      box-shadow: 0 0 10px #fff;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .bulle::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 30px;
+      border-width: 20px 20px 0;
+      border-style: solid;
+      border-color: white transparent transparent transparent;
+    }
+
+    #texte {
+      min-height: 100px;
+    }
+
+    .btn {
+      display: none;
+      background-color: #0cf;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0cf;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background-color: #09a;
+    }
+  </style>
+</head>
+<body onclick="lancerAudio()">
+
+  <img src="mascotte.png" alt="Mascotte" class="mascotte">
+
+  <div class="bulle" onclick="prochaineBulle()">
+    <div id="texte"></div>
+  </div>
+
+  <button class="btn" onclick="window.location.href='page2.html'">Que le voyage commence !</button>
+
+  <audio id="musique" src="Monokuma-ost.mp3" loop></audio>
+
+  <script>
+    const bulles = [
+      "Oh ! Un visiteur !"
+      "Bonjour explorateur ! Je suis Basile, du Club des Explorateurs d'Art.",
+      "Tu viens de trouver la porte secrète pour rentrer dans mon club !",
+      "Mais pour être un vrai membre, tu vas devoir trouver le mot de passe.",
+      "Il est composé de 7 lettres, et ce site va t'aider à le découvrir.",
+      "7 énigmes sont dispersées à travers la ville, explore la à l'aide des coordonnées GPS qui te seront fournies.",
+      "Bonne aventure, explorateur ! Que l'art soit avec toi !"
+    ];
+
+    let audioLancé = false;
+    let indexBulle = 0;
+    let i = 0;
+    const vitesse = 40;
+
+    function afficherTexteLigneParLigne() {
+      const texteElement = document.getElementById("texte");
+      if (i < bulles[indexBulle].length) {
+        texteElement.innerHTML += bulles[indexBulle].charAt(i);
+        i++;
+        setTimeout(afficherTexteLigneParLigne, vitesse);
+      }
+    }
+
+    function prochaineBulle() {
+      if (i < bulles[indexBulle].length) return; // ignore clic si texte pas fini
+      indexBulle++;
+      i = 0;
+      if (indexBulle < bulles.length) {
+        document.getElementById("texte").innerHTML = "";
+        afficherTexteLigneParLigne();
+      } else {
+        document.querySelector(".bulle").style.display = "none";
+        document.querySelector(".btn").style.display = "block";
+      }
+    }
+
+    function lancerAudio() {
+      if (!audioLancé) {
+        document.getElementById("musique").play();
+        audioLancé = true;
+      }
+    }
+
+    window.onload = afficherTexteLigneParLigne;
+  </script>
+</body>
+</html>
