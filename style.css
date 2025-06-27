@@ -1,17 +1,15 @@
 /* Corps de la page */
-body {
+body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Georgia, serif;
-  background: linear-gradient(to bottom, #1a237e, #283593); /* bleu profond → bleu moyen */
-  color: #aee7ff; /* bleu clair pour contraste */
+  height: 100%;
+  background: url('stone_wall_background.png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Georgia', serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
+  align-items: center;
 }
 
 /* Effet de particules lumineuses */
