@@ -1,5 +1,21 @@
+/* Corps de la page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia, serif;
+  background: linear-gradient(to bottom, #1a237e, #283593); /* bleu profond → bleu moyen */
+  color: #aee7ff; /* bleu clair pour contraste */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
 
-body: :after {
+/* Effet de particules lumineuses */
+body::after {
   content: '';
   position: fixed;
   top: 0;
@@ -12,40 +28,69 @@ body: :after {
   opacity: 0.05;
   z-index: 0;
 }
-  margin: 0;
-  background: linear-gradient(to bottom, #1a237e, #283593);
-  color: white;
-  font-family: Georgia, serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
+/* Conteneur principal */
 .container {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
   text-align: center;
-  padding: 20px;
 }
 
-.porte {
-  width: 80%;
-  max-width: 300px;
-  height: auto;
-  margin-bottom: 20px;
+/* Titres */
+h1, h2 {
+  color: #ffffff;
+  text-shadow: 0 0 10px #5c6bc0;
 }
 
-input[type="password"] {
-  width: 80%;
-  padding: 12px;
-  font-size: 1em;
-  margin-bottom: 15px;
+/* Bulles de BD */
+.speech-bubble {
+  position: relative;
+  background: #ffffff;
+  color: #000;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  max-width: 80%;
+  margin: 1rem auto;
+  font-size: 1.1rem;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50px;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-top-color: #ffffff;
+}
+
+/* Boutons */
 button {
-  padding: 12px 20px;
-  font-size: 1em;
-  background-color: #444;
+  padding: 0.7rem 1.2rem;
+  background: #5c6bc0;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #7986cb;
+}
+
+/* Media query pour mobile */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .speech-bubble {
+    font-size: 1rem;
+    padding: 1rem;
+  }
 }
