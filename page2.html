@@ -1,29 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Le Club des Explorateurs d'Art</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Écran d'intro avec bouton -->
-  <div id="intro-screen">
-    <h1>Bienvenue...</h1>
-    <button id="enter-button">🎧 Démarrer l'exploration</button>
-  </div>
-
-  <!-- Contenu principal caché au début -->
-  <div id="main-content" style="display: none;">
-    <h2>Voici la première porte...</h2>
-    <!-- Ici tu pourras mettre ta porte et ton jeu -->
-  </div>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La grande énigme</title>
+  <title>Bienvenue Explorateur</title>
   <style>
     body, html {
       margin: 0;
@@ -31,47 +11,30 @@
       height: 100%;
       background: url('stone_wall_background.png') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Arial', sans-serif;
+      color: white;
+      font-family: 'Georgia', serif;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
-
-    .door-container {
-      position: relative;
-      max-width: 300px;
-      width: 80%;
-    }
-
-    .door {
-      width: 100%;
-      cursor: pointer;
-      transition: transform 1s ease;
-    }
-
-    .input-area {
-      margin-top: 20px;
       text-align: center;
+      padding: 20px;
     }
 
-    input[type="password"] {
-      padding: 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      width: 200px;
+    .welcome-box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.5;
     }
 
     audio {
@@ -83,49 +46,20 @@
 
   <!-- Musique de fond -->
   <audio id="bg-music" autoplay loop>
-    <source src="assets/audio/ambiance-joyeuse.mp3" type="audio/mp3" />
+    <source src="ambiance.mp3" type="audio/mp3" />
   </audio>
 
-  <!-- Sons d’action -->
-  <audio id="open-sound">
-    <source src="porte.wav" type="audio/mp3" />
-  </audio>
-  <audio id="error-sound">
-    <source src="erreur.wav" type="audio/mp3" />
-  </audio>
-
-  <div class="door-container">
-    <img src="porte-fermee.png" alt="Porte fermée" class="door" id="door">
-  </div>
-
-  <div class="input-area">
-    <input type="password" id="password" placeholder="Entrez le mot de passe" />
-    <br />
-    <button onclick="checkPassword()">Entrer</button>
+  <div class="welcome-box">
+    <h1>Bienvenue, jeune explorateur</h1>
+    <p>
+      Te voilà à l'orée d'une grande expédition à travers la ville…<br />
+      Prépare-toi à ouvrir les portes du savoir artistique !
+    </p>
   </div>
 
   <script>
-    const correctPassword = "explorateur";
-    const door = document.getElementById("door");
-    const openSound = document.getElementById("open-sound");
-    const errorSound = document.getElementById("error-sound");
     const music = document.getElementById("bg-music");
-
-    function checkPassword() {
-      const entered = document.getElementById("password").value.toLowerCase();
-      if (entered === correctPassword) {
-        door.src = "porte-ouverte.png";
-        openSound.play();
-        setTimeout(() => {
-          window.location.href = "page2.html";
-        }, 1500);
-      } else {
-        errorSound.play();
-        alert("Mot de passe incorrect !");
-      }
-    }
-
-    // Musique auto (soumis à restrictions navigateur)
+    // Rejoue la musique si bloquée
     window.addEventListener('click', () => {
       music.play().catch(() => {});
     });
@@ -133,4 +67,3 @@
 
 </body>
 </html>
-
