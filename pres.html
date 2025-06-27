@@ -22,6 +22,11 @@
     .mascotte {
       width: 200px;
       max-width: 70vw;
+      transition: transform 0.3s ease;
+    }
+
+    .rebond {
+      transform: translateY(-10px);
     }
 
     .bulle {
@@ -72,7 +77,7 @@
 </head>
 <body onclick="lancerAudio()">
 
-  <img src="mascotte.png" alt="Mascotte" class="mascotte">
+  <img src="mascotte.png" alt="Mascotte" class="mascotte" id="mascotte">
 
   <div class="bulle" onclick="prochaineBulle()">
     <div id="texte"></div>
@@ -80,7 +85,11 @@
 
   <button class="btn" onclick="window.location.href='page2.html'">Que le voyage commence !</button>
 
+  <!-- Musique de fond -->
   <audio id="musique" src="Monokuma-ost.mp3" loop></audio>
+
+  <!-- Son de clic -->
+  <audio id="clic" src="clic.mp3"></audio>
 
   <script>
     const bulles = [
@@ -90,7 +99,7 @@
       "Mais pour être un vrai membre, tu vas devoir trouver le mot de passe.",
       "Il est composé de 7 lettres, et ce site va t'aider à le découvrir.",
       "7 énigmes sont dispersées à travers la ville, explore la à l'aide des coordonnées GPS qui te seront fournies.",
-      "Bonne aventure, explorateur ! Que l'art soit avec toi !"
+      "Bonne aventure, explorateur ! Que l'art soit avec toi !"
     ];
 
     let audioLancé = false;
@@ -108,7 +117,18 @@
     }
 
     function prochaineBulle() {
-      if (i < bulles[indexBulle].length) return; // ignore clic si texte pas fini
+      if (i < bulles[indexBulle].length) return;
+
+      // Joue le son de clic
+      const clicAudio = document.getElementById("clic");
+      clicAudio.currentTime = 0;
+      clicAudio.play();
+
+      // Animation rebond mascotte
+      const mascotte = document.getElementById("mascotte");
+      mascotte.classList.add("rebond");
+      setTimeout(() => mascotte.classList.remove("rebond"), 300);
+
       indexBulle++;
       i = 0;
       if (indexBulle < bulles.length) {
