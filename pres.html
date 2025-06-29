@@ -2,145 +2,134 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Bienvenue Explorateur</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenue Explorateur</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: url('fond-colorise.png') no-repeat center center fixed;
+      background: url('fond-colorise.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Georgia', serif;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 100vh;
+    }
+
+    .container {
       position: relative;
+      width: 100vw;
+      height: 100vh;
     }
 
     .mascotte {
       position: absolute;
       bottom: 0;
-      left: 10px;
-      width: 25vw;
-      max-width: 180px;
+      left: 0;
+      width: 30vw;
+      max-width: 220px;
       transition: transform 0.3s ease;
+      z-index: 2;
     }
 
     .rebond {
-      transform: scale(1.05) translateY(-10px);
+      transform: scale(1.05) translateY(-5px);
     }
 
     .bulle {
       position: absolute;
-      top: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      color: #003366;
+      top: 10vh;
+      left: 35vw;
+      right: 5vw;
+      background-color: #ffffffdd;
       border-radius: 20px;
       padding: 20px;
-      width: 80%;
-      max-width: 500px;
       font-size: 1.1em;
-      box-shadow: 0 0 10px #aaa;
-      z-index: 2;
+      color: #222;
+      box-shadow: 0 0 10px #333;
       cursor: pointer;
+      min-height: 100px;
+      z-index: 1;
     }
 
     .bulle::after {
       content: '';
       position: absolute;
       bottom: -20px;
-      left: 50px;
+      left: 20px;
       border-width: 20px 20px 0;
       border-style: solid;
-      border-color: white transparent transparent transparent;
+      border-color: #ffffffdd transparent transparent transparent;
     }
 
-    #texte {
-      min-height: 100px;
-    }
-
-    .btn {
+    .btn-suivant {
       display: none;
-      background-color: #003366;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.2em;
       position: absolute;
       bottom: 30px;
       right: 30px;
-      box-shadow: 0 0 10px #003366;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      background-color: #0c88c4;
+      color: white;
+      border: none;
+      border-radius: 15px;
       cursor: pointer;
+      box-shadow: 0 0 10px #0c88c4;
     }
   </style>
 </head>
 <body onclick="lancerAudio()">
-
-  <img src="mascotte.png" alt="Mascotte" class="mascotte" id="mascotte">
-
-  <div class="bulle" onclick="prochaineBulle()">
-    <div id="texte"></div>
+  <div class="container">
+    <img src="msacotte.png" alt="Basile" class="mascotte" id="mascotte">
+    <div class="bulle" id="bulle" onclick="prochaineBulle()">
+      <div id="texte"></div>
+    </div>
+    <button class="btn-suivant" onclick="window.location.href='page2.html'">C'est parti !</button>
   </div>
 
-  <button class="btn" onclick="window.location.href='page2.html'">C’est parti !</button>
-
-  <!-- Sons -->
   <audio id="musique" src="Monokuma-ost.mp3" loop></audio>
   <audio id="clic" src="clic.wav"></audio>
 
   <script>
     const bulles = [
       "Oh ! Un visiteur !",
-      "Enchanté, explorateur ! Je suis Basile, membre émérite du Club des Explorateurs d'Art.",
-      "Si tu es ici, c’est que tu as trouvé notre porte dérobée pour entrer dans le club. C’est un lieu fabuleux, ouvert à tous, destiné à faire découvrir l’art sous toutes ses facettes.",
-      "Le club s’adresse principalement aux enfants, mais rien n’empêche leurs parents de les accompagner dans cette aventure. D’ailleurs, en franchissant la porte secrète, ils auront besoin de l’aide d’adultes curieux et motivés.",
-      "Cette entrée mystérieuse te propose d’explorer notre belle ville et de découvrir comment l’art l’a influencée. Un parcours rempli d’énigmes, avec à la clé une récompense collector, réservée à l’élite de notre club.",
-      "Voici comment cela va se passer : derrière moi se trouvent 7 portes, chacune représentant un art. En ouvrant l’une d’elles, tu obtiendras des coordonnées GPS qui te mèneront à un lieu précis de la ville. Une fois sur place, tu y trouveras une énigme.",
-      "Il te suffira de trouver la réponse et de l’inscrire sous la coordonnée. Si ta réponse est juste, tu obtiendras une lettre. Lorsque tu auras les 7 lettres, tu pourras reconstituer le mot de passe final pour ouvrir la véritable porte du club.",
-      "Tu as tout compris ? Parfait ! Il ne me reste plus qu’à te souhaiter une excellente exploration. On se retrouve derrière la porte finale. Que l’art soit avec toi !"
+      "Enchanté explorateur ! Je suis Basile, membre émérite du club des Explorateurs d'Arts.",
+      "Si tu es ici, c’est que tu as trouvé notre porte dérobée pour entrer dans le club. C'est un lieu superbe, ouvert à tous, destiné à en découvrir plus sur l'art et ses multiples facettes.",
+      "Le club s'adresse d'abord aux enfants, mais rien n'interdit à leurs parents de les accompagner dans cette aventure. D'ailleurs, en passant par la porte secrète, il leur faudra l'aide d'adultes investis et curieux.",
+      "Cette porte mystérieuse vous propose d'explorer notre belle ville, et d'en savoir plus sur comment l'art l'a influencée. Un chemin rempli d'énigmes, avec à la clé une récompense collector, réservée à l'élite de notre club.",
+      "Voilà comment ça va se passer. Il y a derrière moi 7 portes, qui représentent chacune un art. Quand tu ouvriras l'une d'elles, tu obtiendras des coordonnées GPS qui t'amèneront à un lieu de la ville. Une fois au bon endroit, tu y trouveras une énigme.",
+      "Il te suffira de trouver la réponse et de l'inscrire en dessous de la coordonnée. Si tu as juste, tu obtiendras une lettre. Quand tu seras en possession des 7 lettres, tu pourras rentrer le code final et ouvrir la véritable porte du club.",
+      "Tu as tout compris ? Parfait, alors il ne me reste plus qu'à te souhaiter une bonne exploration. On se retrouve derrière la porte finale. Que l'art soit avec toi !"
     ];
 
     let audioLancé = false;
     let indexBulle = 0;
     let i = 0;
-    const vitesse = 40;
+    const vitesse = 35;
 
-    function afficherTexteLigneParLigne() {
-      const texteElement = document.getElementById("texte");
+    function afficherTexte() {
+      const texte = document.getElementById("texte");
       if (i < bulles[indexBulle].length) {
-        texteElement.innerHTML += bulles[indexBulle].charAt(i);
+        texte.innerHTML += bulles[indexBulle].charAt(i);
         i++;
-        setTimeout(afficherTexteLigneParLigne, vitesse);
+        setTimeout(afficherTexte, vitesse);
       }
     }
 
     function prochaineBulle() {
       if (i < bulles[indexBulle].length) return;
 
-      // Son clic
-      const clicAudio = document.getElementById("clic");
-      clicAudio.currentTime = 0;
-      clicAudio.play();
-
-      // Animation mascotte
+      document.getElementById("clic").play();
       const mascotte = document.getElementById("mascotte");
       mascotte.classList.add("rebond");
       setTimeout(() => mascotte.classList.remove("rebond"), 300);
 
       indexBulle++;
       i = 0;
-
       if (indexBulle < bulles.length) {
         document.getElementById("texte").innerHTML = "";
-        afficherTexteLigneParLigne();
+        afficherTexte();
       } else {
-        document.querySelector(".bulle").style.display = "none";
-        document.querySelector(".btn").style.display = "block";
+        document.getElementById("bulle").style.display = "none";
+        document.querySelector(".btn-suivant").style.display = "block";
       }
     }
 
@@ -151,7 +140,7 @@
       }
     }
 
-    window.onload = afficherTexteLigneParLigne;
+    window.onload = afficherTexte;
   </script>
 </body>
 </html>
