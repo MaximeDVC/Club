@@ -2,63 +2,59 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La grande énigme</title>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>La porte dérobée</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap');
-
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'Cinzel', serif;
-      background: url('porte-fermee.png') no-repeat center center fixed;
+      font-family: 'Georgia', serif;
+      background: url('fond-graphite.png') no-repeat center center fixed;
       background-size: cover;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      color: #f8f8f8;
-      text-shadow: 0 0 10px #000;
+      align-items: center;
+      color: #111;
     }
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
+    .door-container {
+      position: relative;
+      max-width: 80%;
+    }
+
+    .door {
+      width: 100%;
+      max-width: 400px;
+      cursor: pointer;
+      transition: transform 1s ease;
     }
 
     .input-area {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #333;
+      margin-top: 20px;
       text-align: center;
     }
 
     input[type="password"] {
       padding: 10px;
-      font-size: 18px;
-      border: none;
+      font-size: 16px;
+      border: 1px solid #333;
       border-radius: 8px;
       width: 200px;
-      margin-top: 10px;
+      background-color: #f0f0f0;
+      color: #222;
     }
 
     button {
-      margin-top: 15px;
+      margin-top: 10px;
       padding: 10px 20px;
-      font-size: 18px;
+      font-size: 16px;
       background-color: #222;
-      color: #fff;
+      color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background-color: #444;
     }
 
     audio {
@@ -66,44 +62,60 @@
     }
   </style>
 </head>
-<body onclick="lancerAudio()">
+<body>
 
-  <h1>Bienvenue…</h1>
-
-  <div class="input-area">
-    <p>Oseras-tu passer la porte ?</p>
-    <input type="password" id="password" placeholder="Mot de passe" />
-    <br />
-    <button onclick="verifier()">Entrer</button>
-  </div>
+  <!-- Musique d'ambiance -->
+  <audio id="bg-music" autoplay loop>
+    <source src="musique.mp3" type="audio/mp3" />
+  </audio>
 
   <!-- Sons -->
-  <audio id="musique" src="musique.mp3" loop></audio>
-  <audio id="porte" src="porte.wav"></audio>
+  <audio id="open-sound">
+    <source src="porte.wav" type="audio/mp3" />
+  </audio>
+
+  <audio id="error-sound">
+    <source src="erreur.wav" type="audio/mp3" />
+  </audio>
+
+  <!-- Porte -->
+  <div class="door-container">
+    <img src="porte-fermee.png" alt="Porte fermée" class="door" id="door">
+  </div>
+
+  <!-- Formulaire -->
+  <div class="input-area">
+    <input type="password" id="password" placeholder="Mot de passe..." />
+    <br>
+    <button onclick="checkPassword()">Entrer</button>
+  </div>
 
   <script>
-    const motDePasse = "explorateur";
-    let musiqueLancee = false;
+    const correctPassword = "explorateur";
+    const door = document.getElementById("door");
+    const openSound = document.getElementById("open-sound");
+    const errorSound = document.getElementById("error-sound");
+    const music = document.getElementById("bg-music");
 
-    function lancerAudio() {
-      if (!musiqueLancee) {
-        document.getElementById('musique').play();
-        musiqueLancee = true;
-      }
-    }
-
-    function verifier() {
-      const input = document.getElementById("password").value.toLowerCase();
-      if (input === motDePasse) {
-        document.getElementById("porte").play();
-        // Changer de page après courte animation sonore
+    function checkPassword() {
+      const entered = document.getElementById("password").value.toLowerCase();
+      if (entered === correctPassword) {
+        door.src = "porte-ouverte.png";
+        openSound.play();
         setTimeout(() => {
-          window.location.href = "pres.html"; // vers la page suivante
+          window.location.href = "pres.html";
         }, 1500);
       } else {
+        errorSound.play();
         alert("Mot de passe incorrect !");
       }
     }
+
+    // Activer la musique au clic (pour conformité navigateur)
+    window.addEventListener('click', () => {
+      music.play().catch(() => {});
+    });
   </script>
+
 </body>
 </html>
