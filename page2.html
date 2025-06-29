@@ -2,33 +2,26 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Explorateur d'Art – Sélection des arts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Le couloir des 7 arts</title>
   <style>
     body, html {
       margin: 0;
       padding: 0;
-      height: 100%;
-      background: url('assets/img/fond-page2.png') no-repeat center center fixed;
+      font-family: Georgia, serif;
+      background: url('assets/img/fond-couloir.png') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Georgia', serif;
-      color: #0c1e3c;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 30px 20px;
-      text-align: center;
+      padding: 2vh;
+      color: #333;
     }
 
     h1 {
-      margin-bottom: 10px;
-      font-size: 1.8em;
-    }
-
-    p {
-      margin-bottom: 30px;
-      font-size: 1.2em;
+      margin: 20px 0 10px;
     }
 
     .arts-container {
@@ -36,117 +29,157 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
-      max-width: 600px;
+      max-width: 700px;
       width: 100%;
+      margin-top: 20px;
     }
 
     .art-button {
-      flex: 1 1 calc(50% - 30px);
-      min-width: 120px;
-      max-width: 200px;
-      padding: 15px 10px;
+      padding: 15px 20px;
       background: rgba(0, 0, 0, 0.6);
       color: white;
       border: 2px solid white;
-      border-radius: 10px;
-      text-decoration: none;
+      border-radius: 12px;
       font-size: 1.1em;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
     .art-button:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      transform: scale(1.05);
+      background-color: rgba(255, 255, 255, 0.15);
     }
 
-    .final-password {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 1000;
+      justify-content: center;
       align-items: center;
     }
 
-    .final-password input {
-      padding: 10px;
-      font-size: 1.2em;
-      border-radius: 8px;
-      border: 2px solid #0c1e3c;
-      width: 200px;
+    .popup-content {
+      background-color: #fff;
+      background-size: cover;
+      background-position: center;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
       text-align: center;
+      position: relative;
     }
 
-    .final-password button {
-      margin-top: 10px;
-      padding: 10px 25px;
-      font-size: 1em;
-      background-color: #0c1e3c;
-      color: white;
-      border: none;
-      border-radius: 8px;
+    .popup-content h2 {
+      margin-top: 0;
+    }
+
+    .popup-content input {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
       cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .final-password button:hover {
-      background-color: #13315c;
-    }
-
-    audio {
-      display: none;
+      background: none;
+      border: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Musique -->
-  <audio id="bg-music" autoplay loop>
-    <source src="assets/audio/ambiance-joyeuse.mp3" type="audio/mp3" />
-  </audio>
-
-  <audio id="erreur-sound">
-    <source src="erreur.wav" type="audio/mp3" />
-  </audio>
-
-  <!-- Texte d'accueil -->
-  <h1>Explorateur,</h1>
-  <p>Choisi un art, et débute ton aventure.</p>
-  <p>Il te faudra tous les parcourir si tu veux avancer.</p>
-
-  <!-- Boutons des 7 arts -->
+  <h1>Choisis un art à explorer</h1>
   <div class="arts-container">
-    <a href="theatre.html" class="art-button">📚 Littérature</a>
-    <a href="musique.html" class="art-button">🎵 Musique</a>
-    <a href="danse.html" class="art-button">💃 Danse</a>
-    <a href="architecture.html" class="art-button">🏛 Architecture</a>
-    <a href="peinture.html" class="art-button">🎨 Peinture</a>
-    <a href="sculpture.html" class="art-button">🗿 Sculpture</a>
-    <a href="cinema.html" class="art-button">🎬 Cinéma</a>
+    <button class="art-button" onclick="ouvrirPopup('litterature')">📚 Littérature</button>
+    <button class="art-button" onclick="ouvrirPopup('musique')">🎵 Musique</button>
+    <button class="art-button" onclick="ouvrirPopup('danse')">💃 Danse</button>
+    <button class="art-button" onclick="ouvrirPopup('architecture')">🏛 Architecture</button>
+    <button class="art-button" onclick="ouvrirPopup('peinture')">🎨 Peinture</button>
+    <button class="art-button" onclick="ouvrirPopup('sculpture')">🗿 Sculpture</button>
+    <button class="art-button" onclick="ouvrirPopup('cinema')">🎬 Cinéma</button>
   </div>
 
-  <!-- Mot de passe final -->
-  <div class="final-password">
-    <input type="text" id="final-pass" placeholder="Mot de passe final" />
-    <button onclick="validerCode()">Valider</button>
+  <!-- POPUP -->
+  <div class="popup" id="popup">
+    <div class="popup-content" id="popup-content">
+      <button class="close-btn" onclick="fermerPopup()">✖</button>
+      <h2 id="titre-art">Titre</h2>
+      <p id="gps-coords">Coordonnées GPS</p>
+      <input type="text" id="reponse" placeholder="Ta réponse ici" />
+      <div id="indice">Entre la bonne réponse pour obtenir un indice...</div>
+    </div>
+    <audio id="musique-art" loop></audio>
   </div>
 
   <script>
-    const music = document.getElementById("bg-music");
-    const erreurSound = document.getElementById("erreur-sound");
-    const motDePasse = "createur"; // ← Modifier ici le mot de passe final
+    const dataArts = {
+      litterature: {
+        titre: "Salle de la Littérature",
+        gps: "48.8566, 2.3522",
+        fond: "assets/img/salle-litterature.png",
+        musique: "assets/audio/litterature.mp3",
+        reponse: "livre",
+        indice: "Lettre : A"
+      },
+      musique: {
+        titre: "Salle de la Musique",
+        gps: "45.7640, 4.8357",
+        fond: "assets/img/salle-musique.png",
+        musique: "assets/audio/musique.mp3",
+        reponse: "note",
+        indice: "Lettre : R"
+      },
+      // Ajoute les autres arts ici...
+    };
 
-    window.addEventListener("click", () => {
-      music.play().catch(() => {});
-    });
+    let currentArt = "";
 
-    function validerCode() {
-      const saisie = document.getElementById("final-pass").value.trim().toLowerCase();
-      if (saisie === motDePasse) {
-        window.location.href = "finale.html";
-      } else {
-        erreurSound.play();
-        alert("Ce n’est pas le bon mot de passe !");
-      }
+    function ouvrirPopup(art) {
+      const popup = document.getElementById("popup");
+      const content = document.getElementById("popup-content");
+      const audio = document.getElementById("musique-art");
+
+      currentArt = art;
+      const data = dataArts[art];
+
+      document.getElementById("titre-art").innerText = data.titre;
+      document.getElementById("gps-coords").innerText = `Coordonnées : ${data.gps}`;
+      document.getElementById("reponse").value = "";
+      document.getElementById("indice").innerText = "Entre la bonne réponse pour obtenir un indice...";
+
+      content.style.backgroundImage = `url('${data.fond}')`;
+
+      audio.src = data.musique;
+      audio.play();
+
+      popup.style.display = "flex";
     }
+
+    function fermerPopup() {
+      const popup = document.getElementById("popup");
+      const audio = document.getElementById("musique-art");
+      popup.style.display = "none";
+      audio.pause();
+      audio.currentTime = 0;
+    }
+
+    document.getElementById("reponse").addEventListener("input", function () {
+      const saisie = this.value.trim().toLowerCase();
+      const bonneReponse = dataArts[currentArt].reponse;
+      if (saisie === bonneReponse.toLowerCase()) {
+        document.getElementById("indice").innerText = dataArts[currentArt].indice;
+      } else {
+        document.getElementById("indice").innerText = "Mauvaise réponse...";
+      }
+    });
   </script>
 
 </body>
