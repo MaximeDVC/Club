@@ -59,6 +59,38 @@
       transform: scale(1.05);
     }
 
+    .final-password {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .final-password input {
+      padding: 10px;
+      font-size: 1.2em;
+      border-radius: 8px;
+      border: 2px solid #0c1e3c;
+      width: 200px;
+      text-align: center;
+    }
+
+    .final-password button {
+      margin-top: 10px;
+      padding: 10px 25px;
+      font-size: 1em;
+      background-color: #0c1e3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .final-password button:hover {
+      background-color: #13315c;
+    }
+
     audio {
       display: none;
     }
@@ -69,6 +101,10 @@
   <!-- Musique -->
   <audio id="bg-music" autoplay loop>
     <source src="assets/audio/ambiance-joyeuse.mp3" type="audio/mp3" />
+  </audio>
+
+  <audio id="erreur-sound">
+    <source src="assets/audio/erreur.wav" type="audio/mp3" />
   </audio>
 
   <!-- Texte d'accueil -->
@@ -87,11 +123,30 @@
     <a href="cinema.html" class="art-button">🎬 Cinéma</a>
   </div>
 
+  <!-- Mot de passe final -->
+  <div class="final-password">
+    <input type="text" id="final-pass" placeholder="Mot de passe final" />
+    <button onclick="validerCode()">Valider</button>
+  </div>
+
   <script>
     const music = document.getElementById("bg-music");
+    const erreurSound = document.getElementById("erreur-sound");
+    const motDePasse = "createur"; // ← Modifier ici le mot de passe final
+
     window.addEventListener("click", () => {
       music.play().catch(() => {});
     });
+
+    function validerCode() {
+      const saisie = document.getElementById("final-pass").value.trim().toLowerCase();
+      if (saisie === motDePasse) {
+        window.location.href = "finale.html";
+      } else {
+        erreurSound.play();
+        alert("Ce n’est pas le bon mot de passe !");
+      }
+    }
   </script>
 
 </body>
