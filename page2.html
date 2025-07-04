@@ -98,43 +98,50 @@ const dataArts = {
     titre: "Salle de la Littérature",
     gps: "48.8566, 2.3522",
     reponse: "Dupin",
-    indice: "Lettre : A"
+    indice: "Lettre : A",
+    fond : "assets/img/salle-litterature.png",
   },
   musique: {
     titre: "Salle de la Musique",
     gps: "48.8570, 2.3540",
     reponse: "7",
-    indice: "Lettre : R"
+    indice: "Lettre : R",
+    fond : "assets/img/salle-musique.png",
   },
   danse: {
     titre: "Salle de la Danse",
     gps: "48.8580, 2.3550",
     reponse: "Danc'Itt",
-    indice: "Lettre : T"
+    indice: "Lettre : T",
+    fond : "assets/img/salle-danse",
   },
   architecture: {
     titre: "Salle de l'Architecture",
     gps: "48.8590, 2.3560",
     reponse: "6",
-    indice: "Lettre : C"
+    indice: "Lettre : C",
+    fond : "assets/img/salle-architecture",
   },
   peinture: {
     titre: "Salle de la Peinture",
     gps: "48.8600, 2.3570",
     reponse: "Simurgh",
-    indice: "Lettre : P"
+    indice: "Lettre : P",
+    fond : "assets/img/salle-peinture",
   },
   sculpture: {
     titre: "Salle de la Sculpture",
     gps: "48.8610, 2.3580",
     reponse: "Hongrois",
-    indice: "Lettre : S"
+    indice: "Lettre : S",
+    fond : "assets/img/salle-sculpture",
   },
   cinema: {
     titre: "Salle du Cinéma",
     gps: "48.8620, 2.3590",
     reponse: "Laguionie",
-    indice: "Lettre : I"
+    indice: "Lettre : I",
+    fond : "assets/img/salle-cinema",
   }
 };
 
@@ -142,6 +149,7 @@ let currentArt = "";
 
 function ouvrirPopup(art) {
   const popup = document.getElementById("popup");
+  const content = document.getElementById("popup-content");
   const titre = document.getElementById("titre-art");
   const coords = document.getElementById("gps-coords");
   const reponse = document.getElementById("reponse");
