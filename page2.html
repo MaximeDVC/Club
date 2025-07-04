@@ -64,9 +64,15 @@ h1 {
 <body>
 
 <h1>Choisis un art à explorer</h1>
+
 <div class="arts-container">
   <button class="art-button" onclick="ouvrirPopup('litterature')">📚 Littérature</button>
   <button class="art-button" onclick="ouvrirPopup('musique')">🎵 Musique</button>
+  <button class="art-button" onclick="ouvrirPopup('danse')">💃 Danse</button>
+  <button class="art-button" onclick="ouvrirPopup('architecture')">🏛 Architecture</button>
+  <button class="art-button" onclick="ouvrirPopup('peinture')">🎨 Peinture</button>
+  <button class="art-button" onclick="ouvrirPopup('sculpture')">🗿 Sculpture</button>
+  <button class="art-button" onclick="ouvrirPopup('cinema')">🎬 Cinéma</button>
 </div>
 
 <div id="popup">
@@ -89,9 +95,39 @@ const dataArts = {
   },
   musique: {
     titre: "Salle de la Musique",
-    gps: "45.7640, 4.8357",
+    gps: "48.8570, 2.3540",
     reponse: "note",
     indice: "Lettre : R"
+  },
+  danse: {
+    titre: "Salle de la Danse",
+    gps: "48.8580, 2.3550",
+    reponse: "rythme",
+    indice: "Lettre : T"
+  },
+  architecture: {
+    titre: "Salle de l'Architecture",
+    gps: "48.8590, 2.3560",
+    reponse: "colonne",
+    indice: "Lettre : C"
+  },
+  peinture: {
+    titre: "Salle de la Peinture",
+    gps: "48.8600, 2.3570",
+    reponse: "palette",
+    indice: "Lettre : P"
+  },
+  sculpture: {
+    titre: "Salle de la Sculpture",
+    gps: "48.8610, 2.3580",
+    reponse: "marbre",
+    indice: "Lettre : S"
+  },
+  cinema: {
+    titre: "Salle du Cinéma",
+    gps: "48.8620, 2.3590",
+    reponse: "camera",
+    indice: "Lettre : I"
   }
 };
 
