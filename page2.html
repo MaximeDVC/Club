@@ -97,43 +97,43 @@ const dataArts = {
   litterature: {
     titre: "Salle de la Littérature",
     gps: "48.8566, 2.3522",
-    reponse: "livre",
+    reponse: "Dupin",
     indice: "Lettre : A"
   },
   musique: {
     titre: "Salle de la Musique",
     gps: "48.8570, 2.3540",
-    reponse: "note",
+    reponse: "7",
     indice: "Lettre : R"
   },
   danse: {
     titre: "Salle de la Danse",
     gps: "48.8580, 2.3550",
-    reponse: "rythme",
+    reponse: "Danc'Itt",
     indice: "Lettre : T"
   },
   architecture: {
     titre: "Salle de l'Architecture",
     gps: "48.8590, 2.3560",
-    reponse: "colonne",
+    reponse: "6",
     indice: "Lettre : C"
   },
   peinture: {
     titre: "Salle de la Peinture",
     gps: "48.8600, 2.3570",
-    reponse: "palette",
+    reponse: "Simurgh",
     indice: "Lettre : P"
   },
   sculpture: {
     titre: "Salle de la Sculpture",
     gps: "48.8610, 2.3580",
-    reponse: "marbre",
+    reponse: "Hongrois",
     indice: "Lettre : S"
   },
   cinema: {
     titre: "Salle du Cinéma",
     gps: "48.8620, 2.3590",
-    reponse: "camera",
+    reponse: "Laguionie",
     indice: "Lettre : I"
   }
 };
@@ -151,7 +151,7 @@ function ouvrirPopup(art) {
   const data = dataArts[art];
 
   titre.textContent = data.titre;
-  coords.textContent = `Coordonnées : ${data.gps}`;
+  coords.textContent = `📍 : ${data.gps}`;
   reponse.value = "";
   indice.textContent = "Entre la bonne réponse pour obtenir un indice...";
 
