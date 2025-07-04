@@ -1,96 +1,63 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le couloir des 7 arts</title>
 <style>
-body, html {
+body {
   margin: 0;
-  padding: 0;
   font-family: Georgia, serif;
-  background: url('assets/img/fond-page2.png') no-repeat center center fixed;
-  background-size: cover;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 2vh;
+  background: #eee;
   color: #333;
+  text-align: center;
 }
-
 h1 {
-  margin: 20px 0 10px;
+  margin-top: 20px;
 }
-
 .arts-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
-  max-width: 700px;
-  width: 100%;
+  gap: 10px;
   margin-top: 20px;
 }
-
 .art-button {
-  padding: 15px 20px;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: 2px solid white;
-  border-radius: 12px;
-  font-size: 1.1em;
+  background: #222;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
-
 .art-button:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background: #555;
 }
-
-.popup {
+#popup {
   display: none;
   position: fixed;
   top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.8);
-  z-index: 1000;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
-
 .popup-content {
-  background-color: #fff;
-  background-size: cover;
-  background-position: center;
-  padding: 30px;
-  border-radius: 15px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
   width: 90%;
-  max-width: 500px;
   text-align: center;
-  position: relative;
 }
-
-.popup-content h2 {
-  margin-top: 0;
-}
-
-.popup-content input {
-  padding: 10px;
-  width: 80%;
-  margin: 10px 0;
-}
-
 .close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
+  margin-top: 10px;
   cursor: pointer;
-  background: none;
+  padding: 5px 10px;
+  background: #222;
+  color: #fff;
   border: none;
+  border-radius: 5px;
 }
 </style>
 </head>
@@ -100,23 +67,16 @@ h1 {
 <div class="arts-container">
   <button class="art-button" onclick="ouvrirPopup('litterature')">📚 Littérature</button>
   <button class="art-button" onclick="ouvrirPopup('musique')">🎵 Musique</button>
-  <button class="art-button" onclick="ouvrirPopup('danse')">💃 Danse</button>
-  <button class="art-button" onclick="ouvrirPopup('architecture')">🏛 Architecture</button>
-  <button class="art-button" onclick="ouvrirPopup('peinture')">🎨 Peinture</button>
-  <button class="art-button" onclick="ouvrirPopup('sculpture')">🗿 Sculpture</button>
-  <button class="art-button" onclick="ouvrirPopup('cinema')">🎬 Cinéma</button>
 </div>
 
-<!-- POPUP -->
-<div class="popup" id="popup">
+<div id="popup">
   <div class="popup-content" id="popup-content">
-    <button class="close-btn" onclick="fermerPopup()">✖</button>
-    <h2 id="titre-art">Titre</h2>
-    <p id="gps-coords">Coordonnées GPS</p>
-    <input type="text" id="reponse" placeholder="Ta réponse ici" />
-    <div id="indice">Entre la bonne réponse pour obtenir un indice...</div>
+    <h2 id="titre-art"></h2>
+    <p id="gps-coords"></p>
+    <input type="text" id="reponse" placeholder="Votre réponse ici"><br>
+    <div id="indice"></div>
+    <button class="close-btn" onclick="fermerPopup()">Fermer</button>
   </div>
-  <audio id="puzzle" loop></audio>
 </div>
 
 <script>
@@ -124,58 +84,14 @@ const dataArts = {
   litterature: {
     titre: "Salle de la Littérature",
     gps: "48.8566, 2.3522",
-    fond: "assets/img/salle-litterature.png",
-    musique: "assets/audio/litterature.mp3",
-    reponse: "Dupin",
-    indice: "Lettre : S"
+    reponse: "livre",
+    indice: "Lettre : A"
   },
   musique: {
     titre: "Salle de la Musique",
     gps: "45.7640, 4.8357",
-    fond: "assets/img/salle-musique.png",
-    musique: "assets/audio/musique.mp3",
-    reponse: "7",
-    indice: "Lettre : U"
-  },
-  danse: {
-    titre: "Salle de la Danse",
-    gps: "45.7640, 4.8357",
-    fond: "assets/img/salle-danse.png",
-    musique: "assets/audio/danse.mp3",
-    reponse: "Danc'Itt",
-    indice: "Lettre : S"
-  },
-  architecture: {
-    titre: "Salle de l'Architecture",
-    gps: "45.7640, 4.8357",
-    fond: "assets/img/salle-architecture.png",
-    musique: "assets/audio/architecture.mp3",
-    reponse: "six",
-    indice: "Lettre : T"
-  },
-  peinture: {
-    titre: "Salle de la Peinture",
-    gps: "45.7640, 4.8357",
-    fond: "assets/img/salle-peinture.png",
-    musique: "assets/audio/peinture.mp3",
-    reponse: "Simurgh",
-    indice: "Lettre : T"
-  },
-  sculpture: {
-    titre: "Salle de la Sculpture",
-    gps: "45.7640, 4.8357",
-    fond: "assets/img/salle-sculpture.png",
-    musique: "assets/audio/sculpture.mp3",
-    reponse: "Hongrois",
-    indice: "Lettre : S"
-  },
-  cinema: {
-    titre: "Salle du Cinéma",
-    gps: "45.7640, 4.8357",
-    fond: "assets/img/salle-cinema.png",
-    musique: "assets/audio/cinema.mp3",
-    reponse: "Laguionie",
-    indice: "Lettre : I"
+    reponse: "note",
+    indice: "Lettre : R"
   }
 };
 
@@ -183,39 +99,35 @@ let currentArt = "";
 
 function ouvrirPopup(art) {
   const popup = document.getElementById("popup");
-  const content = document.getElementById("popup-content");
-  const audio = document.getElementById("musique-art");
+  const titre = document.getElementById("titre-art");
+  const coords = document.getElementById("gps-coords");
+  const reponse = document.getElementById("reponse");
+  const indice = document.getElementById("indice");
 
   currentArt = art;
   const data = dataArts[art];
 
-  document.getElementById("titre-art").innerText = data.titre;
-  document.getElementById("gps-coords").innerText = `Coordonnées : ${data.gps}`;
-  document.getElementById("reponse").value = "";
-  document.getElementById("indice").innerText = "Entre la bonne réponse pour obtenir un indice...";
-  content.style.backgroundImage = `url('${data.fond}')`;
-
-  audio.src = data.musique;
-  audio.play();
+  titre.textContent = data.titre;
+  coords.textContent = `Coordonnées : ${data.gps}`;
+  reponse.value = "";
+  indice.textContent = "Entre la bonne réponse pour obtenir un indice...";
 
   popup.style.display = "flex";
 }
 
 function fermerPopup() {
-  const popup = document.getElementById("popup");
-  const audio = document.getElementById("musique-art");
-  popup.style.display = "none";
-  audio.pause();
-  audio.currentTime = 0;
+  document.getElementById("popup").style.display = "none";
 }
 
-document.getElementById("reponse").addEventListener("input", function () {
+document.getElementById("reponse").addEventListener("input", function() {
   const saisie = this.value.trim().toLowerCase();
-  const bonneReponse = dataArts[currentArt].reponse;
-  if (saisie === bonneReponse.toLowerCase()) {
-    document.getElementById("indice").innerText = dataArts[currentArt].indice;
+  const bonneReponse = dataArts[currentArt].reponse.toLowerCase();
+  const indice = document.getElementById("indice");
+
+  if (saisie === bonneReponse) {
+    indice.textContent = dataArts[currentArt].indice;
   } else {
-    document.getElementById("indice").innerText = "Mauvaise réponse...";
+    indice.textContent = "Mauvaise réponse...";
   }
 });
 </script>
