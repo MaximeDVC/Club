@@ -163,6 +163,10 @@ function ouvrirPopup(art) {
   reponse.value = "";
   indice.textContent = "Entre la bonne réponse pour obtenir un indice...";
 
+  content.style.backgroundImage = `url('${data.fond}')`;
+  content.style.backgroundSize = "cover";
+  content.style.backgroundPosition = "center";
+
   popup.style.display = "flex";
 }
 
