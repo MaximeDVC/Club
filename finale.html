@@ -42,8 +42,17 @@
       margin: 10px;
       padding: 10px;
       border-radius: 5px;
-      border: none;
+      border: 1px solid #ccc;
       width: 200px;
+      transition: none;
+      outline: none;
+      box-shadow: none;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: none;
+      transform: none;
     }
 
     button {
@@ -53,12 +62,7 @@
       border-radius: 25px;
       font-size: 1em;
       cursor: pointer;
-      margin-top: 10px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      transition: none;
     }
 
     .confetti {
@@ -72,23 +76,43 @@
       opacity: 0.5;
       z-index: 0;
     }
+
+    .confirmation-message {
+      display: none;
+      font-size: 1.2em;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body onclick="playMusic()">
 
   <div class="confetti"></div>
 
-  <h1>🎉 Félicitations Explorateur ! 🎉</h1>
+  <h1> Félicitations Explorateur ! </h1>
   <p>Tu as franchi toutes les étapes avec brio.</p>
   <p>Remplis ce formulaire pour confirmer ta victoire.</p>
 
-  <form action="https://formspree.io/f/manbqldg" method="POST">
+  <form action="https://formspree.io/f/manbqldg" method="POST" onsubmit="afficherConfirmation(event)">
     <input type="text" name="Nom" placeholder="Nom" required><br>
     <input type="text" name="Prénom" placeholder="Prénom" required><br>
+    <input type="email" name="Email" placeholder="Email" required><br>
     <input type="number" name="Adultes" placeholder="Nombre d'adultes" required><br>
     <input type="number" name="Enfants" placeholder="Nombre d'enfants" required><br>
     <button type="submit">Envoyer</button>
   </form>
+
+  <div class="confirmation-message" id="confirmation">
+    Merci ! Tu recevras bientôt un mail top secret... 
+  </div>
 
   <audio id="musique" src="assets/audio/musique-finale.mp3" loop></audio>
 
@@ -99,6 +123,20 @@
         document.getElementById("musique").play();
         musiqueJouee = true;
       }
+    }
+
+    function afficherConfirmation(event) {
+      event.preventDefault(); // Empêche l'envoi direct
+      document.querySelector("form").style.display = "none";
+      document.getElementById("confirmation").style.display = "block";
+
+      // Envoi réel via JavaScript (Formspree supporte cela)
+      const form = event.target;
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
     }
   </script>
 
