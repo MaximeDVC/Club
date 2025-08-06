@@ -95,7 +95,7 @@ h1 {
 </head>
 <body>
 
-<h1>Choisis un art à explorer</h1>
+<h1>Ouvre une porte, explore son art</h1>
 
   <audio id="bg-music" autoplay loop>
   <source src="assets/audio/puzzle.mp3" type="audio/mp3">
@@ -123,8 +123,8 @@ h1 {
 </div>
 
 <div class="mdp-section">
-  <h2>Mot de passe final :</h2>
-  <input type="password" id="mdp-final" placeholder="Mot de passe final">
+  <h2>Mot de passe final </h2>
+  <input type="password" id="mdp-final" placeholder="En minuscule">
   <button onclick="verifierMdp()">Valider</button>
   <div id="error-message"></div>
 </div>
@@ -198,7 +198,7 @@ function ouvrirPopup(art) {
   titre.textContent = data.titre;
   coords.textContent = `📍 : ${data.gps}`;
   reponse.value = "";
-  indice.textContent = "Entre la bonne réponse pour obtenir un indice...";
+  indice.textContent = "Une bonne réponse, un indice te sera donné";
 
   content.style.backgroundImage = `url('${data.fond}')`;
   popup.style.display = "flex";
@@ -223,7 +223,7 @@ document.getElementById("reponse").addEventListener("input", function() {
 // Vérification du mot de passe final
 function verifierMdp() {
   const mdp = document.getElementById("mdp-final").value.trim().toLowerCase();
-  const attendu = "GALERIE";
+  const attendu = "galerie";
   if (mdp === attendu) {
     window.location.href = "finale.html";
   } else {
