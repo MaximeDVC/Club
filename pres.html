@@ -1,231 +1,148 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le couloir des 7 arts</title>
-<style>
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: Georgia, serif;
-  background: url('assets/img/fond-page2.png') no-repeat center center fixed;
-  background-size: cover;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 2vh;
-  color: #333;
-}
-h1 {
-  margin-top: 20px;
-}
-.arts-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-.art-button {
-  background: #222;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.art-button:hover {
-  background: #555;
-}
-#popup {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.popup-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-}
-.close-btn {
-  margin-top: 10px;
-  cursor: pointer;
-  padding: 5px 10px;
-  background: #222;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-}
-.mdp-section {
-  margin-top: 30px;
-  text-align: center;
-}
-.mdp-section input {
-  padding: 8px;
-  margin-right: 5px;
-}
-.mdp-section button {
-  padding: 8px 15px;
-  background: #222;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.mdp-section button:hover {
-  background: #555;
-}
-#error-message {
-  color: red;
-  margin-top: 10px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenue Explorateur</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('fond-colorise.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .mascotte {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 40vh;
+      width: auto;
+      z-index: 10;
+    }
+
+    .rebond {
+      transform: scale(1.05) translateY(-5px);
+    }
+
+    .bulle {
+      position: absolute;
+      top: 15vh;
+      left: 30vw;
+      right: 5vw;
+      background-color: #ffffffdd;
+      border-radius: 20px;
+      padding: 30px;
+      font-size: 1em;
+      color: #222;
+      box-shadow: 0 0 10px #333;
+      cursor: pointer;
+      min-height: 100px;
+      z-index: 1;
+    }
+
+    .bulle::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 20px;
+      border-width: 20px 20px 0;
+      border-style: solid;
+      border-color: #ffffffdd transparent transparent transparent;
+    }
+
+    .btn-suivant {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #0cf;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0cf;
+      z-index: 20;
+    }
+  </style>
 </head>
-<body>
-
-<h1>Choisis un art à explorer</h1>
-
-<div class="arts-container">
-  <button class="art-button" onclick="ouvrirPopup('litterature')">📚 Littérature</button>
-  <button class="art-button" onclick="ouvrirPopup('musique')">🎵 Musique</button>
-  <button class="art-button" onclick="ouvrirPopup('danse')">💃 Danse</button>
-  <button class="art-button" onclick="ouvrirPopup('architecture')">🏛 Architecture</button>
-  <button class="art-button" onclick="ouvrirPopup('peinture')">🎨 Peinture</button>
-  <button class="art-button" onclick="ouvrirPopup('sculpture')">🗿 Sculpture</button>
-  <button class="art-button" onclick="ouvrirPopup('cinema')">🎬 Cinéma</button>
-</div>
-
-<div id="popup">
-  <div class="popup-content" id="popup-content">
-    <h2 id="titre-art"></h2>
-    <p id="gps-coords"></p>
-    <input type="text" id="reponse" placeholder="Votre réponse ici"><br>
-    <div id="indice"></div>
-    <button class="close-btn" onclick="fermerPopup()">Fermer</button>
+<body onclick="lancerAudio()">
+  <div class="container">
+    <img src="mascotte.png" alt="Mascotte" class="mascotte" id="mascotte">
+    <div class="bulle" id="bulle" onclick="prochaineBulle()">
+      <div id="texte"></div>
+    </div>
+    <button class="btn-suivant" onclick="window.location.href='page2.html'">C’est parti !</button>
   </div>
-</div>
 
-<div class="mdp-section">
-  <h2>Mot de passe final :</h2>
-  <input type="password" id="mdp-final" placeholder="Mot de passe final">
-  <button onclick="verifierMdp()">Valider</button>
-  <div id="error-message"></div>
-</div>
+  <!-- Audio -->
+  <audio id="musique" src="Monokuma-ost.mp3" loop></audio>
+  <audio id="clic" src="clic.wav"></audio>
 
-<script>
-const dataArts = {
-  litterature: {
-    titre: "Salle de la Littérature",
-    gps: "48.8566, 2.3522",
-    reponse: "Dupin",
-    indice: "Lettre : A",
-    fond : "assets/img/salle-litterature.png",
-  },
-  musique: {
-    titre: "Salle de la Musique",
-    gps: "48.8570, 2.3540",
-    reponse: "7",
-    indice: "Lettre : R",
-    fond : "assets/img/salle-musique.png",
-  },
-  danse: {
-    titre: "Salle de la Danse",
-    gps: "48.8580, 2.3550",
-    reponse: "Danc'Itt",
-    indice: "Lettre : T",
-    fond : "assets/img/salle-danse.png",
-  },
-  architecture: {
-    titre: "Salle de l'Architecture",
-    gps: "48.8590, 2.3560",
-    reponse: "6",
-    indice: "Lettre : I",
-    fond : "assets/img/salle-architecture.png",
-  },
-  peinture: {
-    titre: "Salle de la Peinture",
-    gps: "48.8600, 2.3570",
-    reponse: "Simurgh",
-    indice: "Lettre : S",
-    fond : "assets/img/salle-peinture.png",
-  },
-  sculpture: {
-    titre: "Salle de la Sculpture",
-    gps: "48.8610, 2.3580",
-    reponse: "Hongrois",
-    indice: "Lettre : T",
-    fond : "assets/img/salle-sculpture.png",
-  },
-  cinema: {
-    titre: "Salle du Cinéma",
-    gps: "48.8620, 2.3590",
-    reponse: "Laguionie",
-    indice: "Lettre : E",
-    fond : "assets/img/salle-cinema.png",
-  }
-};
+  <script>
+    const bulles = [
+      "Oh ! Un visiteur !",
+      "Enchanté explorateur ! Je suis Basile, membre émérite du club des Explorateurs d'Arts.",
+      "Si tu es ici, c’est que tu as trouvé notre porte dérobée pour entrer dans le club. C'est un lieu superbe, ouvert à tous, destiné à en découvrir plus sur l'art et ses multiples facettes.",
+      "Le club s'adresse d'abord aux enfants, mais rien n'interdit à leurs parents de les accompagner dans cette aventure. D'ailleurs, en passant par la porte secrète, il leur faudra l'aide d'adultes investis et curieux.",
+      "Cette porte mystérieuse vous propose d'explorer notre belle ville, et d'en savoir plus sur comment l'art l'a influencée. Un chemin rempli d'énigmes, avec à la clé une récompense collector, réservée à l'élite de notre club.",
+      "Voilà comment ça va se passer. Il y a derrière moi 7 portes, qui représentent chacune un art. Quand tu ouvriras l'une d'elles, tu obtiendras des coordonnées GPS qui t'amèneront à un lieu de la ville. Une fois au bon endroit, tu y trouveras une énigme.",
+      "Il te suffira de trouver la réponse et de l'inscrire en dessous de la coordonnée. Si tu as juste, tu obtiendras une lettre. Quand tu seras en possession des 7 lettres, tu pourras rentrer le code final et ouvrir la véritable porte du club.",
+      "Tu as tout compris ? Parfait, alors il ne me reste plus qu'à te souhaiter une bonne exploration. On se retrouve derrière la porte finale. Que l'art soit avec toi !"
+    ];
 
-let currentArt = "";
+    let audioLancé = false;
+    let indexBulle = 0;
+    let i = 0;
+    const vitesse = 15;
 
-function ouvrirPopup(art) {
-  const popup = document.getElementById("popup");
-  const content = document.getElementById("popup-content");
-  const titre = document.getElementById("titre-art");
-  const coords = document.getElementById("gps-coords");
-  const reponse = document.getElementById("reponse");
-  const indice = document.getElementById("indice");
+    function afficherTexte() {
+      const texte = document.getElementById("texte");
+      if (i < bulles[indexBulle].length) {
+        texte.innerHTML += bulles[indexBulle].charAt(i);
+        i++;
+        setTimeout(afficherTexte, vitesse);
+      }
+    }
 
-  currentArt = art;
-  const data = dataArts[art];
+    function prochaineBulle() {
+      if (i < bulles[indexBulle].length) return;
 
-  titre.textContent = data.titre;
-  coords.textContent = `📍 : ${data.gps}`;
-  reponse.value = "";
-  indice.textContent = "Entre la bonne réponse pour obtenir un indice...";
+      document.getElementById("clic").play();
+      const mascotte = document.getElementById("mascotte");
+      mascotte.classList.add("rebond");
+      setTimeout(() => mascotte.classList.remove("rebond"), 300);
 
-  content.style.backgroundImage = `url('${data.fond}')`;
-  popup.style.display = "flex";
-}
+      indexBulle++;
+      i = 0;
+      if (indexBulle < bulles.length) {
+        document.getElementById("texte").innerHTML = "";
+        afficherTexte();
+      } else {
+        document.getElementById("bulle").style.display = "none";
+        document.querySelector(".btn-suivant").style.display = "block";
+      }
+    }
 
-function fermerPopup() {
-  document.getElementById("popup").style.display = "none";
-}
+    function lancerAudio() {
+      if (!audioLancé) {
+        document.getElementById("musique").play();
+        audioLancé = true;
+      }
+    }
 
-document.getElementById("reponse").addEventListener("input", function() {
-  const saisie = this.value.trim().toLowerCase();
-  const bonneReponse = dataArts[currentArt].reponse.toLowerCase();
-  const indice = document.getElementById("indice");
-
-  if (saisie === bonneReponse) {
-    indice.textContent = dataArts[currentArt].indice;
-  } else {
-    indice.textContent = "Mauvaise réponse...";
-  }
-});
-
-// Vérification du mot de passe final
-function verifierMdp() {
-  const mdp = document.getElementById("mdp-final").value.trim().toLowerCase();
-  const attendu = "ARTISTE";
-  if (mdp === attendu) {
-    window.location.href = "finale.html";
-  } else {
-    document.getElementById("error-message").textContent = "Mot de passe incorrect, essaye encore.";
-  }
-}
-</script>
-
+    window.onload = afficherTexte;
+  </script>
 </body>
 </html>
