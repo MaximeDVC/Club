@@ -56,6 +56,8 @@ h1 {
   max-width: 400px;
   width: 90%;
   text-align: center;
+  background-size: cover;
+  background-position: center;
 }
 .close-btn {
   margin-top: 10px;
@@ -66,11 +68,39 @@ h1 {
   border: none;
   border-radius: 5px;
 }
+.mdp-section {
+  margin-top: 30px;
+  text-align: center;
+}
+.mdp-section input {
+  padding: 8px;
+  margin-right: 5px;
+}
+.mdp-section button {
+  padding: 8px 15px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.mdp-section button:hover {
+  background: #555;
+}
+#error-message {
+  color: red;
+  margin-top: 10px;
+}
 </style>
 </head>
 <body>
 
 <h1>Choisis un art à explorer</h1>
+
+  <audio id="bg-music" autoplay loop>
+  <source src="assets/audio/puzzle.mp3" type="audio/mp3">
+</audio>
+
 
 <div class="arts-container">
   <button class="art-button" onclick="ouvrirPopup('litterature')">📚 Littérature</button>
@@ -92,56 +122,63 @@ h1 {
   </div>
 </div>
 
+<div class="mdp-section">
+  <h2>Mot de passe final :</h2>
+  <input type="password" id="mdp-final" placeholder="Mot de passe final">
+  <button onclick="verifierMdp()">Valider</button>
+  <div id="error-message"></div>
+</div>
+
 <script>
 const dataArts = {
   litterature: {
     titre: "Salle de la Littérature",
-    gps: "48.8566, 2.3522",
+    gps: "48.51531, 2.34212",
     reponse: "Dupin",
-    indice: "Lettre : A",
+    indice: "Lettre : G",
     fond : "assets/img/salle-litterature.png",
   },
   musique: {
     titre: "Salle de la Musique",
-    gps: "48.8570, 2.3540",
-    reponse: "7",
-    indice: "Lettre : R",
+    gps: "48.51524, 2.34483",
+    reponse: "6",
+    indice: "Lettre : A",
     fond : "assets/img/salle-musique.png",
   },
   danse: {
     titre: "Salle de la Danse",
-    gps: "48.8580, 2.3550",
+    gps: "48.52358, 2.35194",
     reponse: "Danc'Itt",
-    indice: "Lettre : T",
-    fond : "assets/img/salle-danse",
+    indice: "Lettre : L",
+    fond : "assets/img/salle-danse.png",
   },
   architecture: {
     titre: "Salle de l'Architecture",
-    gps: "48.8590, 2.3560",
+    gps: "48.51497, 2.34206",
     reponse: "6",
-    indice: "Lettre : I",
-    fond : "assets/img/salle-architecture",
+    indice: "Lettre : E",
+    fond : "assets/img/salle-architecture.png",
   },
   peinture: {
     titre: "Salle de la Peinture",
-    gps: "48.8600, 2.3570",
+    gps: "48.51683, 2.34507",
     reponse: "Simurgh",
-    indice: "Lettre : S",
-    fond : "assets/img/salle-peinture",
+    indice: "Lettre : R",
+    fond : "assets/img/salle-peinture.png",
   },
   sculpture: {
     titre: "Salle de la Sculpture",
-    gps: "48.8610, 2.3580",
+    gps: "48.50783, 2.33822",
     reponse: "Hongrois",
-    indice: "Lettre : T",
-    fond : "assets/img/salle-sculpture",
+    indice: "Lettre : I",
+    fond : "assets/img/salle-sculpture.png",
   },
   cinema: {
     titre: "Salle du Cinéma",
-    gps: "48.8620, 2.3590",
+    gps: "48.52608, 2.35247",
     reponse: "Laguionie",
     indice: "Lettre : E",
-    fond : "assets/img/salle-cinema",
+    fond : "assets/img/salle-cinema.png",
   }
 };
 
@@ -164,9 +201,6 @@ function ouvrirPopup(art) {
   indice.textContent = "Entre la bonne réponse pour obtenir un indice...";
 
   content.style.backgroundImage = `url('${data.fond}')`;
-  content.style.backgroundSize = "cover";
-  content.style.backgroundPosition = "center";
-
   popup.style.display = "flex";
 }
 
@@ -185,6 +219,26 @@ document.getElementById("reponse").addEventListener("input", function() {
     indice.textContent = "Mauvaise réponse...";
   }
 });
+
+// Vérification du mot de passe final
+function verifierMdp() {
+  const mdp = document.getElementById("mdp-final").value.trim().toLowerCase();
+  const attendu = "GALERIE";
+  if (mdp === attendu) {
+    window.location.href = "finale.html";
+  } else {
+    document.getElementById("error-message").textContent = "Mot de passe incorrect, essaye encore.";
+  }
+}
+</script>
+  
+<script>
+  window.addEventListener("click", () => {
+    const audio = document.getElementById("bg-music");
+    if (audio.paused) {
+      audio.play().catch(() => {});
+    }
+  });
 </script>
 
 </body>
