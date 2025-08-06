@@ -1,130 +1,106 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Félicitations !</title>
-<style>
-body {
-  margin: 0;
-  font-family: Georgia, serif;
-  background: url('assets/img/fond-final.png') no-repeat center center fixed;
-  background-size: cover;
-  color: #333;
-  text-align: center;
-  overflow: hidden;
-}
-h1 {
-  margin-top: 30px;
-  font-size: 2em;
-  animation: fadeIn 2s ease-in-out;
-}
-form {
-  margin-top: 20px;
-  display: inline-block;
-  text-align: left;
-  background: rgba(255,255,255,0.8);
-  padding: 20px;
-  border-radius: 10px;
-  animation: fadeIn 3s ease-in-out;
-}
-label {
-  display: block;
-  margin-top: 10px;
-}
-input {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-}
-button {
-  margin-top: 15px;
-  background: #222;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-button:hover {
-  background: #555;
-}
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
-}
-.particles {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Félicitations Explorateur !</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Georgia, serif;
+      background: url('assets/img/fond-final.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 10vh;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 5px #000;
+      animation: fadeIn 2s ease-out;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 20px;
+      animation: fadeIn 3s ease-out;
+    }
+
+    form {
+      margin-top: 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      animation: fadeIn 4s ease-out;
+    }
+
+    input {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0cf;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: url('assets/img/confetti.gif');
+      background-size: cover;
+      opacity: 0.5;
+      z-index: 0;
+    }
+  </style>
 </head>
-<body>
+<body onclick="playMusic()">
 
-<h1>🎉 Félicitations Explorateur ! 🎉</h1>
-<p>Tu as terminé le parcours et découvert tous les secrets du Club des Explorateurs d'Art.</p>
+  <div class="confetti"></div>
 
-<form action="https://formspree.io/f/manbqldg" method="POST" enctype="text/plain">
-  <label>Nom :
-    <input type="text" name="Nom" required>
-  </label>
-  <label>Prénom :
-    <input type="text" name="Prénom" required>
-  </label>
-  <label>Nombre d'adultes :
-    <input type="number" name="Adultes" min="0" required>
-  </label>
-  <label>Nombre d'enfants :
-    <input type="number" name="Enfants" min="0" required>
-  </label>
-  <button type="submit">Envoyer</button>
-</form>
+  <h1>🎉 Félicitations Explorateur ! 🎉</h1>
+  <p>Tu as franchi toutes les étapes avec brio.</p>
+  <p>Remplis ce formulaire pour confirmer ta victoire.</p>
 
-<audio autoplay loop>
-  <source src="assets/audio/musique-finale.mp3" type="audio/mp3">
-</audio>
+  <form action="https://formspree.io/f/manbqldg" method="POST">
+    <input type="text" name="Nom" placeholder="Nom" required><br>
+    <input type="text" name="Prénom" placeholder="Prénom" required><br>
+    <input type="number" name="Adultes" placeholder="Nombre d'adultes" required><br>
+    <input type="number" name="Enfants" placeholder="Nombre d'enfants" required><br>
+    <button type="submit">Envoyer</button>
+  </form>
 
-<canvas class="particles" id="particles"></canvas>
+  <audio id="musique" src="assets/audio/musique-finale.mp3" loop></audio>
 
-<script>
-// effet particules
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particlesArray = [];
-for (let i = 0; i < 100; i++) {
-  particlesArray.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 3 + 1,
-    speedX: (Math.random() - 0.5) * 1,
-    speedY: (Math.random() - 0.5) * 1,
-  });
-}
-
-function animateParticles() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particlesArray.forEach(p => {
-    p.x += p.speedX;
-    p.y += p.speedY;
-    if (p.x < 0) p.x = canvas.width;
-    if (p.x > canvas.width) p.x = 0;
-    if (p.y < 0) p.y = canvas.height;
-    if (p.y > canvas.height) p.y = 0;
-    ctx.fillStyle = "#999";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-    ctx.fill();
-  });
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
-</script>
+  <script>
+    let musiqueJouee = false;
+    function playMusic() {
+      if (!musiqueJouee) {
+        document.getElementById("musique").play();
+        musiqueJouee = true;
+      }
+    }
+  </script>
 
 </body>
 </html>
